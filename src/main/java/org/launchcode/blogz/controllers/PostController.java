@@ -25,6 +25,7 @@ public class PostController extends AbstractController {
 		
 		// TODO - implement newPost
 		
+		
 		return "redirect:index"; // TODO - this redirect should go to the new post's page  		
 	}
 	
