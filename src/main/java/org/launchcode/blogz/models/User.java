@@ -64,16 +64,20 @@ public class User extends AbstractEntity {
 		this.username = username;
 	}
 	
+	//checks that the given pw is correct for the user
+	//user.isMatchingPassword(...)
 	public boolean isMatchingPassword(String password) {
 		return encoder.matches(password, pwHash);
 	}
 	
+	//checks that the pw meets minimum standards
 	public static boolean isValidPassword(String password) {
 		Pattern validUsernamePattern = Pattern.compile("(\\S){6,20}");
 		Matcher matcher = validUsernamePattern.matcher(password);
 		return matcher.matches();
 	}
 	
+	//checks that username meets min standards
 	public static boolean isValidUsername(String username) {
 		Pattern validUsernamePattern = Pattern.compile("[a-zA-Z][a-zA-Z0-9_-]{4,11}");
 		Matcher matcher = validUsernamePattern.matcher(username);
