@@ -20,7 +20,7 @@ public class User extends AbstractEntity {
 	private String username;
 	private String pwHash;
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	
+	//all posts by a given user
 	private List<Post> posts;
 	
 	public User() {}

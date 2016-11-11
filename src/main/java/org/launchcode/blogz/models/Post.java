@@ -67,6 +67,7 @@ public class Post extends AbstractEntity {
 		this.author = author;
 	}
 	
+	//TODO: Figure out how to change sort order to display most recent first
 	@NotNull
 	@OrderColumn
 	@Column(name = "created")

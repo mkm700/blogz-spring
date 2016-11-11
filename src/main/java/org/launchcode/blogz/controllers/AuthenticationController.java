@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AuthenticationController extends AbstractController {
 	
-	@Autowired
-	private UserDao userDao;
-	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signupForm() {
 		return "signup";
@@ -38,6 +35,8 @@ public class AuthenticationController extends AbstractController {
 			model.addAttribute("username_error", "Username is not valid");
 			isValidated = false;
 		}
+		
+		//TODO: add a check to see if username already exists
 	
 		if (!User.isValidPassword(pw)) {
 			model.addAttribute("password_error", "Password is not valid");
