@@ -87,8 +87,7 @@ public class PostController extends AbstractController {
 		// TODO - implement userPosts
 		//get all of the user's posts
 		User blogUser = userDao.findByUsername(username);
-		int uid = blogUser.getUid();
-		List<Post> blogPosts = postDao.findByAuthor_uid(uid);
+		List<Post> blogPosts = blogUser.getPosts();
 		
 		//pass the posts into the template
 		model.addAttribute("posts", blogPosts);

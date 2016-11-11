@@ -29,14 +29,20 @@ public class AuthenticationController extends AbstractController {
 		String pw = request.getParameter("password");
 		String verify = request.getParameter("verify");
 		boolean isValidated = true;
-		
-		//validate username and verify passwords are the same and valid
-		if(!User.isValidUsername(un)) {
-			model.addAttribute("username_error", "Username is not valid");
+	
+		//TODO: add a check to see if username already exists
+		User checkForUser = userDao.findByUsername(un);
+		if (checkForUser != null) {					//user exists
+			model.addAttribute("username_error", "That username already exists");
 			isValidated = false;
 		}
-		
-		//TODO: add a check to see if username already exists
+		else {
+			//validate username and verify passwords are the same and valid
+			if(!User.isValidUsername(un)) {
+				model.addAttribute("username_error", "Username is not valid");
+				isValidated = false;
+			}
+		}
 	
 		if (!User.isValidPassword(pw)) {
 			model.addAttribute("password_error", "Password is not valid");
@@ -63,8 +69,8 @@ public class AuthenticationController extends AbstractController {
 			return "redirect:blog/newpost";
 		}
 		
-		//invalid data - reset username in form and send back to signup form with error messages
 		else {
+			//invalid data - reset username in form and send back to signup form with error messages
 			model.addAttribute("username", un);
 			return "/signup";
 		}
@@ -89,6 +95,11 @@ public class AuthenticationController extends AbstractController {
 		//get data out of database
 		//List<HelloLog> logs = helloLogDao.findAll();
 		User blogUser = userDao.findByUsername(un);
+		if (blogUser == null) {
+			model.addAttribute("username", un);
+			model.addAttribute("error","Couldn't find that user.");
+			return "login";
+		}
 
 		//check password is correct
 		if (blogUser.isMatchingPassword(pw)) {
